@@ -62,7 +62,7 @@ def get_reginfo(name, tld_info):
         print(f"域名{name}.{tld_info[0]} => 已注册", end="\r", flush=True)
         can_reg = False
     if can_reg:
-        with open(f"{tld_info[0]}.data", "a") as f:
+        with open(f"result.txt", "a") as f:
             f.write(f"{name}.{tld_info[0]} \n")
 
 
