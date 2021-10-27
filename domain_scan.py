@@ -6,7 +6,7 @@ import threading
 import sys
 
 # 并发最大线程数
-max_thread = 4
+max_thread = 10
 timeout = 10
 sleep_time = 0.1
 socket.setdefaulttimeout(timeout)
