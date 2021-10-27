@@ -49,14 +49,14 @@ def get_reginfo(name, tld_info):
     reg = tld_info[2]
     # print(reg)
     if not info:
-        print(f'域名{name}.{tld_info[0]}查询失败！')
+        print(f'域名{name}.{tld_info[0]} => 查询失败')
         return
     # print(info)
     if info.find(reg) >= 0:
-        print(f'域名{name}.{tld_info[0]} 未注册 => !!!!!!')
+        print(f'域名{name}.{tld_info[0]} => 未注册')
         can_reg = True
     else:
-        print(f'域名{name}.{tld_info[0]} 已注册 => XXXXXXX')
+        print(f'域名{name}.{tld_info[0]} => 已注册', end='\r' ,flush=True)
         can_reg = False
     if can_reg:
         with open(f'result_scan.data','a') as f:
