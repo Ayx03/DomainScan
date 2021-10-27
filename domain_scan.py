@@ -72,7 +72,8 @@ def get_domain_name(name):
     # [print(y) for y in tld_array]
     for domain in tld_array:
         while threading.active_count() > max_thread:
-            pass
+            time.sleep(sleep_time)
+            
         t = threading.Thread(
             target=get_reginfo,
             args=(
@@ -99,7 +100,8 @@ def get_domain_free(name, domain):
     tld_par_list = [x.split("=")[:-1] for x in tld_list]
     for name in name_list:
         while threading.active_count() > max_thread:
-            pass
+            time.sleep(sleep_time)
+            
         t = threading.Thread(
             target=get_reginfo,
             args=(
