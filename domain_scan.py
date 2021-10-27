@@ -11,7 +11,7 @@ timeout = 10
 sleep_time = 0.1
 socket.setdefaulttimeout(timeout)
 
-
+# [print(chr(i)) for i in range(ord("a"),ord("z")+1)]
 def get_tld():
     tld = list()
     with open("tld", "r") as f:
@@ -52,14 +52,14 @@ def get_reginfo(name, tld_info):
     reg = tld_info[2]
     # print(reg)
     if info is "":
-        print(f"域名{name}.{tld_info[0]} => 查询失败")
+        print(f"{name}.{tld_info[0]} => 查询失败")
         return
     # print(info)
     if info.find(reg) >= 0:
-        print(f"域名{name}.{tld_info[0]} => 未注册")
+        print(f"{name}.{tld_info[0]} => 未注册")
         can_reg = True
     else:
-        print(f"域名{name}.{tld_info[0]} => 已注册", end="\r", flush=True)
+        print(f"{name}.{tld_info[0]} => 已注册", end="\r", flush=True)
         can_reg = False
     if can_reg:
         with open(f"result.txt", "a") as f:
