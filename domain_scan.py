@@ -50,11 +50,11 @@ def get_reginfo(name, tld_info):
     can_reg = False
     info = whois_query(name, tld_info[0], tld_info[1])
     reg = tld_info[2]
-    print(reg)
+    # print(reg)
     if info is "":
         print(f"域名{name}.{tld_info[0]} => 查询失败")
         return
-    print(info)
+    # print(info)
     if info.find(reg) >= 0:
         print(f"域名{name}.{tld_info[0]} => 未注册")
         can_reg = True
@@ -62,7 +62,7 @@ def get_reginfo(name, tld_info):
         print(f"域名{name}.{tld_info[0]} => 已注册", end="\r", flush=True)
         can_reg = False
     if can_reg:
-        with open(f"result_scan.data", "a") as f:
+        with open(f"{tld_info[0]}.data", "a") as f:
             f.write(f"{name}.{tld_info[0]} \n")
 
 
