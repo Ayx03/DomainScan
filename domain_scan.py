@@ -6,9 +6,9 @@ import threading
 import sys
 
 # 并发最大线程数
-max_thread = 10
+max_thread = 1
 timeout = 10
-sleep_time = 0.1
+sleep_time = 1
 socket.setdefaulttimeout(timeout)
 
 # [print(chr(i)) for i in range(ord("a"),ord("z")+1)]
@@ -51,15 +51,28 @@ def get_reginfo(name, tld_info):
     info = whois_query(name, tld_info[0], tld_info[1])
     reg = tld_info[2]
     # print(reg)
-    if info is "":
+    if info == "":
         print(f"{name}.{tld_info[0]} => 查询失败")
         return
     # print(info)
     if info.find(reg) >= 0:
         print(f"{name}.{tld_info[0]} => 未注册")
         can_reg = True
+    # if info include 'Number of allowed queries exceeded.\r\n'
+    # it means the whois server has been blocked
+    # so we need to sleep for a while and query again
+    while info.find("Number of allowed queries exceeded.") >= 0:
+        # sleep for 10 sec and query again, show a count down during sleep
+        for i in range(120, 0, -1):
+            print(f"{name}.{tld_info[0]} => 查询被限制，{i} 秒后重试", end="\r", flush=True)
+            time.sleep(1)
+        info = whois_query(name, tld_info[0], tld_info[1])
+        if info.find(reg) >= 0:
+            print(f"{name}.{tld_info[0]} => 未注册")
+            can_reg = True
     else:
-        print(f"{name}.{tld_info[0]} => 已注册", end="\r", flush=True)
+        print(info)
+
         can_reg = False
     if can_reg:
         with open(f"result.txt", "a") as f:
